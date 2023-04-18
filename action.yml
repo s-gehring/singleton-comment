@@ -34,7 +34,7 @@ runs:
     - name: Update Pull Request
       uses: peter-evans/create-or-update-comment@3383acd359705b10cb1eeef05c0e88c056ea4666
       with:
-        issue-number: ${{ github.event.pull_request.number }}
+        issue-number: ${{ inputs.issue-number }}
         comment-id: ${{ steps.fc.outputs.comment-id }}
         edit-mode: replace
         body: |
