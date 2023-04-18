@@ -1,6 +1,9 @@
 name: 'Singleton Comment'
 description: 'Creates or updates a comment, based on persistent id.'
 author: 'Simon Gehring'
+branding:
+  icon: message-circle
+  color: red
 inputs:
   comment-body:
     required: true
