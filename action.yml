@@ -28,7 +28,7 @@ runs:
       uses: peter-evans/find-comment@v2
       id: fc
       with:
-        issue-number: issue-number
+        issue-number: ${{ inputs.issue-number }}
         body-includes: "Comment ID: ${{ env.COMMENT_ID }}"
         comment-author: "github-actions[bot]"
     - name: Update Pull Request
