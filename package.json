@@ -1,26 +1,24 @@
 {
-  "name": "typescript-action",
+  "name": "singleton-comment-action",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Writes and updates a single comment by id.",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+    "package": "ncc build --source-map --license licenses.txt"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/s-gehring/singleton-comment"
   },
   "keywords": [
     "actions",
-    "node",
-    "setup"
+    "comment",
+    "pull request"
   ],
   "author": "",
   "license": "MIT",
@@ -34,10 +32,8 @@
     "eslint": "^8.38.0",
     "eslint-plugin-github": "^4.7.0",
     "eslint-plugin-jest": "^27.2.1",
-    "jest": "^29.5.0",
     "js-yaml": "^4.1.0",
     "prettier": "^2.8.7",
-    "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
   }
 }

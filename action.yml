@@ -1,11 +1,44 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Singleton Comment'
+description: 'Creates or updates a comment, based on persistent id.'
+author: 'Simon Gehring'
 inputs:
-  milliseconds: # change this
+  comment-body:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'The body of the comment in markdown.'
+  id:
+    required: false
+    description: "The ID to identify the comment in future updates. May be auto-generated which basically defaults to 'one comment per workflow'."
+    default: ""
+  issue-number:
+    required: true
+    description: "The number of the issue or pull request in which to search."
+
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: 'composite'
+  steps:
+    - name: "Compute ID"
+      shell: bash
+      run: |
+        if [-z "${{ inputs.id }}"]
+        then
+          echo "COMMENT_ID=${{ github.workflow }}-auto-generated" >> $GITHUB_ENV
+        else
+          echo "COMMENT_ID=${{ inputs.id }}" >> $GITHUB_ENV
+        fi
+    - name: "Find comment"
+      uses: peter-evans/find-comment@v2
+      id: fc
+      with:
+        issue-number: issue-number
+        body-includes: "Comment ID: ${{ env.COMMENT_ID }}"
+        comment-author: "github-actions[bot]"
+    - name: Update Pull Request
+      uses: peter-evans/create-or-update-comment@v3
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-id: ${{ steps.fc.outputs.comment-id }}
+        edit-mode: replace
+        body: |
+          ${{ inputs.comment-body }}
+          
+          <sub>Comment ID: ${{ env.COMMENT_ID }}</sub>
