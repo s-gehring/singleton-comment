@@ -10,9 +10,8 @@ inputs:
     description: "The ID to identify the comment in future updates. May be auto-generated which basically defaults to 'one comment per workflow'."
     default: ""
   issue-number:
-    required: true
     description: "The number of the issue or pull request in which to search."
-
+    default: ${{ github.event.pull_request.number }}
 runs:
   using: 'composite'
   steps:
